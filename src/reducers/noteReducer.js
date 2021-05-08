@@ -1,7 +1,6 @@
 import { ADD_NOTE, GET_NOTE } from '../actions/types'
 
 const initialState= {
-    notes: [ ],
     note: {}
 }
 
@@ -10,7 +9,7 @@ export default function(state = initialState, action) {
         case ADD_NOTE:
             return {
                 ...state,
-                notes: [action.payload, ...state.notes]
+                note: action.payload
             }
         case GET_NOTE:
             return {

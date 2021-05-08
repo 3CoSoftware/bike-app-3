@@ -1,8 +1,9 @@
-import { GET_SUMMARIES, GET_RIDE } from "../actions/types";
+import { GET_SUMMARIES, GET_RIDE, GET_OVERLAY } from "../actions/types";
 
 const initialState = {
     summaries: [],
-    ride: null 
+    ride: null, 
+    rideOverlay: []
 }
 
 export default function(state= initialState, action) {
@@ -16,6 +17,11 @@ export default function(state= initialState, action) {
             return {
                 ...state,
                 ride: action.payload
+            }
+        case GET_OVERLAY: 
+            return {
+                ...state, 
+                rideOverlay: action.payload 
             }
         default:
             return state;

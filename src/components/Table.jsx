@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getSummaries, getRide } from "../actions/summaryActions";
+import { getSummaries, getRide, getOverlay } from "../actions/summaryActions";
 import { getNote } from "../actions/noteActions";
 import PropTypes from 'prop-types'
 import MaterialTable from "material-table";
@@ -14,7 +14,9 @@ class Table extends Component {
 
     handleClick = (event, data) => {
         this.props.getRide(data)
+        this.props.getOverlay(data.rideName)
         this.props.getNote(data.rideName)
+        
     }
     
     render() {
@@ -49,11 +51,12 @@ Table.propTypes = {
     getSummaries: PropTypes.func.isRequired,
     summary: PropTypes.object.isRequired,
     getNote: PropTypes.func,
-    getRide: PropTypes.func
+    getRide: PropTypes.func,
+    getOverlay: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
     summary: state.summary
 })
 
-export default connect(mapStateToProps, { getSummaries, getNote, getRide })(Table)
+export default connect(mapStateToProps, { getSummaries, getNote, getRide, getOverlay })(Table)
