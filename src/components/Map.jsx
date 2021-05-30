@@ -1,9 +1,16 @@
 import { useEffect } from "react";
 import { GoogleMap, withScriptjs, withGoogleMap, Polyline } from "react-google-maps";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOverlay } from '../actions/summaryActions';
 
 function Map() {
-    const rideOverlay = useSelector(state => state.summary.rideOverlay)
+    const rideOverlay = useSelector(state => state.summary.rideOverlay);
+    const ride = useSelector(state => state.summary.ride);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getOverlay(ride.rideName))
+    }, [dispatch, ride.rideName])
     
     return (
         <GoogleMap 

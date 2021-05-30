@@ -1,21 +1,41 @@
 import axios from 'axios';
 import history from '../history'
-import { ADD_NOTE, GET_NOTE } from './types'
+import { GET_NOTE } from './types'
 
-
-export const addNote = note => dispatch => {
-    axios.patch('/riders/paul/ridenotes', note)
+// Creates a new ridenote 
+// Runs when CreateNote form is submitted 
+export const addNote = note => (dispatch, getState) => {
+    const rider = getState().auth.rider
+    axios.patch(`/riders/${rider.username}/ridenotes`, note)
     .then(res => dispatch({
-        type: ADD_NOTE, 
+        type: GET_NOTE, 
         payload: res.data 
-    }))
+    })
+    )
 }
 
-export const getNote = rideName => dispatch => {
-    axios.get(`/riders/paul/ridenotes/${rideName}`)
+// Gets a ridenote for a particular ride
+// Runs when a ride is selected from the summaries table 
+export const getNote = rideName => (dispatch, getState) => {
+    const rider = getState().auth.rider
+    console.log(rider)
+    axios.get(`/riders/${rider.username}/ridenotes/${rideName}`)
     .then(res => dispatch({
         type: GET_NOTE,
         payload: res.data 
     }))
     history.push('/ride')
+}
+
+// Edits a ride note 
+// Runs when  edit form is submitted
+// Redirects to success confirmation page
+export const editNote = (note, id) => (dispatch, getState) => {
+    const rider = getState().auth.rider
+    axios.patch(`/riders/${rider.username}/ridenotes/${id}`, note)
+    .then(res => dispatch({
+        type: GET_NOTE,
+        payload: res.data
+    }))
+    history.push('/success')
 }

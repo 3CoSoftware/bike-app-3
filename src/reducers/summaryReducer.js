@@ -5,8 +5,11 @@ const initialState = {
     ride: null, 
     rideOverlay: []
 }
+// summaries - array of objects, bike rides. Used in Table 
+// ride - the selected ride from Table (onclick)
+// rideOverlay - array of objects, coordinates. Used in Map 
 
-export default function(state= initialState, action) {
+const summaryReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_SUMMARIES:
             return {
@@ -27,3 +30,5 @@ export default function(state= initialState, action) {
             return state;
     }
 }
+
+export default summaryReducer

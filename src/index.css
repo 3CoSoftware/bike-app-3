@@ -1,0 +1,11 @@
+@font-face {
+    font-family: Nunito;
+    src: url(assets/Nunito-Light.ttf);
+  }
+  
+  body {
+    text-align: center;
+    font-size: 16px;
+    padding: 2.5%;
+    font-family: 'Nunito';
+  }

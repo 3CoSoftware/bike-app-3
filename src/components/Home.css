@@ -1,0 +1,11 @@
+.home {
+    background-image: url("../assets/cyclist.jpeg");
+    height: 500px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome {
+    text-transform: capitalize;
+}

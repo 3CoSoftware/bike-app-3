@@ -1,16 +1,12 @@
-import { ADD_NOTE, GET_NOTE } from '../actions/types'
+import { GET_NOTE } from '../actions/types'
 
 const initialState= {
-    note: {}
+    note: null
 }
+// note - ride note for selected ride. Used in Ride 
 
-export default function(state = initialState, action) {
+const noteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_NOTE:
-            return {
-                ...state,
-                note: action.payload
-            }
         case GET_NOTE:
             return {
                 ...state,
@@ -19,7 +15,6 @@ export default function(state = initialState, action) {
         default:
             return state;
     }
-
-
-
 }
+
+export default noteReducer

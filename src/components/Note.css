@@ -1,0 +1,5 @@
+.card-body {
+    background: linear-gradient(to right, pink, orange);
+    line-height: .8;
+    border: 3px solid black;
+}
