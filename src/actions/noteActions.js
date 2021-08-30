@@ -1,11 +1,12 @@
 import axios from 'axios';
 import history from '../history'
-import { GET_NOTE } from './types'
+import { GET_NOTE, SET_NOTES_SHOW } from './types'
 
 // Creates a new ridenote 
 // Runs when CreateNote form is submitted 
 export const addNote = note => (dispatch, getState) => {
     const rider = getState().auth.rider
+    console.log("addNote rider:", rider);
     axios.patch(`/riders/${rider.username}/ridenotes`, note)
     .then(res => dispatch({
         type: GET_NOTE, 
@@ -18,7 +19,7 @@ export const addNote = note => (dispatch, getState) => {
 // Runs when a ride is selected from the summaries table 
 export const getNote = rideName => (dispatch, getState) => {
     const rider = getState().auth.rider
-    console.log(rider)
+    console.log("getNote rider:", rider);
     axios.get(`/riders/${rider.username}/ridenotes/${rideName}`)
     .then(res => dispatch({
         type: GET_NOTE,
@@ -32,10 +33,19 @@ export const getNote = rideName => (dispatch, getState) => {
 // Redirects to success confirmation page
 export const editNote = (note, id) => (dispatch, getState) => {
     const rider = getState().auth.rider
+    console.log("editNote rider:", rider);
     axios.patch(`/riders/${rider.username}/ridenotes/${id}`, note)
     .then(res => dispatch({
         type: GET_NOTE,
         payload: res.data
     }))
     history.push('/success')
+}
+
+export const showNotes = () => {
+    return { type: SET_NOTES_SHOW, showNotes: true };
+}
+
+export const hideNotes = () => {
+    return { type: SET_NOTES_SHOW, showNotes: false };
 }

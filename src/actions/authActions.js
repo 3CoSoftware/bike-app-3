@@ -12,6 +12,10 @@ import {
     REGISTER_SUCCESS
 } from './types'
 
+const API_ADDRESS = document.location.origin.includes(':') ? 
+    document.location.origin.replace('3000','5000') : 
+    document.location.origin;
+
 // GET CURRENT USER
 export const loadUser = () => (dispatch, getState) => {
     dispatch({
@@ -20,7 +24,7 @@ export const loadUser = () => (dispatch, getState) => {
 
     
 
-    axios.get(`http://localhost:5000/auth/user`, tokenConfig(getState))
+    axios.get(`${API_ADDRESS}/auth/user`, tokenConfig(getState))
     .then(res => dispatch({
         type: USER_LOADED,
         payload: res.data 
@@ -43,7 +47,7 @@ export const register = ({ username, password, units, lang }) => dispatch => {
 
     const body = JSON.stringify({ username, password, units, lang })
 
-    axios.post('http://localhost:5000/riders', body, config)
+    axios.post(`${API_ADDRESS}/riders`, body, config)
     .then(res => dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data
@@ -59,6 +63,8 @@ export const register = ({ username, password, units, lang }) => dispatch => {
 
 // USER LOGIN 
 export const login = ({ username, password }) => dispatch => {
+
+    console.log('document.location.origin', document.location.origin);
     const config = {
         headers: {
             'Content-type': 'application/json'
@@ -67,7 +73,7 @@ export const login = ({ username, password }) => dispatch => {
 
     const body = JSON.stringify({ username, password })
 
-    axios.post('http://localhost:5000/auth', body, config)
+    axios.post(`${API_ADDRESS}/auth`, body, config)
     .then(res => dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
