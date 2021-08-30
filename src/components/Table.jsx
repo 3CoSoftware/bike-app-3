@@ -2,7 +2,8 @@
 import MaterialTable from 'material-table';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getSummaries, getRide } from '../actions/summaryActions';
+import { getSummaries } from '../actions/summaryActions';
+import { selectRide, clearMapOverlay, setRideIndex } from '../actions/rideActions';
 import { getNote } from '../actions/noteActions';
 import Logout from './Logout'
 
@@ -32,21 +33,40 @@ const columnsMetric = [
 ]
 
 export default function Table() {
+
+    console.log("Table render");
     const dispatch = useDispatch()
     const summaries = useSelector(state => state.summary.summaries)
     const rider = useSelector(state => state.auth.rider)
 
     useEffect(() => {
-        dispatch(getSummaries())
+        console.log("Table: useEffect()")
+        //dispatch(getSummaries())
     }, [dispatch])
 
     function handleClick(event, data) {
-        dispatch(getRide(data))
-        dispatch(getNote(data.rideName))
+        console.log("Table: handleClick() data:", data);
+        dispatch(selectRide(data));
+        dispatch(setRideIndex(0));
+        dispatch(getNote(data.rideName));
     }
-    
+
+ 
+
+    function handleButtonClickGetSummaries() {
+        dispatch(getSummaries());
+    }
+
+    console.log("Rendering Table for rider:", rider.username, "", summaries.length, "summaries");
+    dispatch(clearMapOverlay());
+
+   
+
     return (
+
             <div className="containers">
+                <button onClick={handleButtonClickGetSummaries} className="btn btn-secondary">Refresh Summaries</button>
+ 
                 <MaterialTable 
                     columns={rider.units === 'imperial' ? columnsImperial : columnsMetric}
                     data={summaries}

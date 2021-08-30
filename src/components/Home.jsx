@@ -7,6 +7,7 @@ import './Home.css'
 
 export const Home = () => {
     const rider = useSelector(state => state.auth.rider)
+    console.log("Home this:", this, "rider:", rider);
     return (
         <div>
             {

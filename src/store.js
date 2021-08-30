@@ -20,6 +20,8 @@ const store = createStore(rootReducer, initialState, compose(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ))
 
+store.subscribe(() => console.log('store.subscribe() store.getState()', store.getState()));
+
 // const  persistor = persistStore(store);
 
 export { store }
