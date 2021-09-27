@@ -3,8 +3,8 @@ import { GoogleMap, withScriptjs, withGoogleMap, Polyline, Marker, Size } from "
 import { useSelector, useDispatch } from 'react-redux';
 import { getRideData } from '../actions/rideActions';
 
-import markerIcon from '../assets/map-marker.jpg';
-import './Marker.css'
+//import markerIcon from '../assets/map-marker.jpg';
+//import './Marker.css'
 
 
 const MyMarker = (props) => {
