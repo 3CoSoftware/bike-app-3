@@ -11,7 +11,10 @@ import { GET_SUMMARIES } from "./types";
 //     }))
 // }
 
-const API_ADDRESS = 'http://localhost:8080/bike';
+const API_ADDRESS = document.location.origin.includes(':') ? 
+    document.location.origin.replace('3000','8080').concat('/bike') : 
+    document.location.origin.concat("/bike");
+    
 
 // Gets all ride summaries and converts measurements 
 // Runs when Table component mounts 
