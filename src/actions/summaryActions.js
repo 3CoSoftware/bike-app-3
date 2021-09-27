@@ -11,9 +11,6 @@ import { GET_SUMMARIES } from "./types";
 //     }))
 // }
 
-//const API_ADDRESS = document.location.origin.includes(':') ? 
-//    'http://localhost:8080/bike' : document.location.origin;
-
 const API_ADDRESS = document.location.origin.includes(':') ? 
     document.location.origin.replace('3000','8080').concat('/bike') : 
     document.location.origin.concat("/bike");
