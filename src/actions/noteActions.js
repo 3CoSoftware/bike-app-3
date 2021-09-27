@@ -2,12 +2,17 @@ import axios from 'axios';
 import history from '../history'
 import { GET_NOTE, SET_NOTES_SHOW } from './types'
 
+const API_ADDRESS = document.location.origin.includes(':') ? 
+    document.location.origin.replace('3000','5000') : 
+    document.location.origin;
+
+
 // Creates a new ridenote 
 // Runs when CreateNote form is submitted 
 export const addNote = note => (dispatch, getState) => {
     const rider = getState().auth.rider
     console.log("addNote rider:", rider);
-    axios.patch(`/riders/${rider.username}/ridenotes`, note)
+    axios.patch(`${API_ADDRESS}/riders/${rider.username}/ridenotes`, note)
     .then(res => dispatch({
         type: GET_NOTE, 
         payload: res.data 
@@ -20,7 +25,7 @@ export const addNote = note => (dispatch, getState) => {
 export const getNote = rideName => (dispatch, getState) => {
     const rider = getState().auth.rider
     console.log("getNote rider:", rider);
-    axios.get(`/riders/${rider.username}/ridenotes/${rideName}`)
+    axios.get(`${API_ADDRESS}/riders/${rider.username}/ridenotes/${rideName}`)
     .then(res => dispatch({
         type: GET_NOTE,
         payload: res.data 
@@ -34,7 +39,7 @@ export const getNote = rideName => (dispatch, getState) => {
 export const editNote = (note, id) => (dispatch, getState) => {
     const rider = getState().auth.rider
     console.log("editNote rider:", rider);
-    axios.patch(`/riders/${rider.username}/ridenotes/${id}`, note)
+    axios.patch(`${API_ADDRESS}/riders/${rider.username}/ridenotes/${id}`, note)
     .then(res => dispatch({
         type: GET_NOTE,
         payload: res.data
