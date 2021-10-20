@@ -13,12 +13,18 @@ const initialState = {};
    
 // const persistedReducer = persistReducer(persistConfig, rootReducer)  
 
-const middleware = [thunk];
+const middleware = [
+    applyMiddleware(thunk),
+    ...(window.__REDUX_DEVTOOLS_EXTENSION__ ? [window.__REDUX_DEVTOOLS_EXTENSION__()] : [])
+  ]
+// const middleware = [thunk];
 
-const store = createStore(rootReducer, initialState, compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-))
+const store = createStore(rootReducer, initialState, compose(...middleware))
+
+// const store = createStore(rootReducer, initialState, compose(
+//     applyMiddleware(...middleware),
+//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// ))
 
 store.subscribe(() => console.log('store.subscribe() store.getState()', store.getState()));
 
